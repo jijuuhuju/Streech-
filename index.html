@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>streech ブロック</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. 安全なロード画面（一瞬だけ表示） -->
+    <div id="loader">
+        <p>Loading streech...</p>
+    </div>
+
+    <!-- 2. スタートモード選択画面 -->
+    <div id="mode-selection-screen">
+        <div class="selection-box">
+            <h2>streech プロジェクトの作成</h2>
+            <p>どちらの方法でサイトを作り始めますか？</p>
+            
+            <div class="mode-buttons">
+                <button id="template-btn" class="select-btn">
+                    <span class="icon">📁</span>
+                    <strong>テンプレートから作る</strong>
+                    <span class="desc">キャラクターや基本ブロックが最初から配置されています</span>
+                </button>
+                
+                <button id="blank-btn" class="select-btn">
+                    <span class="icon">📄</span>
+                    <strong>白紙から作る</strong>
+                    <span class="desc">何も配置されていない、完全にゼロの状態から自由に作ります</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. メインのアプリ画面（最初は非表示） -->
+    <div id="app-container" class="hidden">
+        
+        <!-- 上部の緑色ヘッダーバー -->
+        <header class="top-bar">
+            <div class="logo">streech ブロック</div>
+            <nav class="menu-buttons">
+                <button id="save-btn">ファイルに保存</button>
+                
+                <!-- ファイル読み込み用パーツ（.streechのみ許可） -->
+                <label for="file-input" class="file-load-label">ファイルで読み込む</label>
+                <input type="file" id="file-input" accept=".streech" style="display: none;">
+                
+                <button class="turbo-btn">⚡ ターボモードにする</button>
+            </nav>
+        </header>
+
+        <!-- 下部のメインコンテンツエリア -->
+        <div class="workspace">
+            
+            <!-- 左側：ブロック選択エリア（隠し引き出し風） -->
+            <div id="block-modal" class="hide">
+                <div class="modal-header">
+                    <span class="modal-title">streech ブロック一覧</span>
+                    <button id="close-btn">✖</button>
+                </div>
+                
+                <aside class="block-palette">
+                    <!-- 🟢 動き系 -->
+                    <div class="block action-green" data-type="speed" data-value="1.7">🚀 スピードを1.7倍にする</div>
+                    <div class="block action-green" data-type="speed" data-value="2.5">🚀 スーパーダッシュ！</div>
+                    <div class="block action-green" data-type="jump" data-value="1.5">🏃 ジャンプ力を1.5倍にする</div>
+                    <div class="block action-green" data-type="tilt" data-value="15">↪️ 右に少し傾ける</div>
+                    <div class="block action-green" data-type="tilt" data-value="-15">↩️ 左に少し傾ける</div>
+                    
+                    <!-- 🔵 見た目系 -->
+                    <div class="block visual-blue" data-type="effect" data-value="rainbow">🌈 レインボーモードON</div>
+                    <div class="block visual-blue" data-type="size" data-value="0.5">🔍 サイズを半分にする</div>
+                    <div class="block visual-blue" data-type="effect" data-value="trail">💨 残像エフェクトON</div>
+                    <div class="block visual-blue" data-type="costume" data-value="neon">👕 コスチューム：ネオン顔</div>
+                    <div class="block visual-blue" data-type="costume" data-value="gold">👑 コスチューム：ゴールド顔</div>
+                    
+                    <!-- 🟡 制御系 -->
+                    <div class="block control-orange" data-type="sense" data-value="enemy">👾 [調べる] 敵の当たり判定</div>
+                    <div class="block control-orange" data-type="loop" data-value="forever">🔄 [制御] ずっと繰り返す</div>
+                    <div class="block control-orange" data-type="loop" data-value="5">🔁 [制御] 5回繰り返す</div>
+                </aside>
+            </div>
+
+            <!-- 右側：ゲーム画面 ＆ ブロック組み立てエリア -->
+            <main class="stage-container">
+                
+                <!-- ブロック欄を開くためのコントロールバー -->
+                <div style="padding: 10px; background: #eee; display: flex; align-items: center;">
+                    <button id="open-btn" style="padding: 6px 12px; font-weight: bold; cursor: pointer; border-radius: 5px; border: 1px solid #ccc; background: #fff;">📦 ブロック欄を開く</button>
+                </div>
+
+                <!-- 右上：ゲーム画面と操作ボタン -->
+                <section class="game-area">
+                    <div class="game-controls">
+                        <button class="flag-btn">🚩</button>
+                        <button class="stop-btn">🛑</button>
+                    </div>
+                    <div class="game-screen">
+                        <!-- ここにJavaScriptでCanvas（黒画面）が自動追加されます -->
+                    </div>
+                </section>
+
+                <!-- 右下：ブロック組み立てエリア -->
+                <section class="drop-zone">
+                    <p class="placeholder-text">（ここに組み立てたブロックが表示されます）</p>
+                </section>
+
+            </main>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
